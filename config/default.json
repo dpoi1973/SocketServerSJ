@@ -1,0 +1,64 @@
+{
+    "Common": {
+        "dbRESTHost": "192.168.0.72:3001",
+        "mqServer": "amqp://192.168.0.251",
+        "SJResultQ": "C#shangjianResults",
+        "SJHeadQ": "C#shangjianHeads",
+        "userName": "admin",
+        "passWord": "admin"
+    },
+    "new207": {
+        "user": "sa",
+        "password": "sa123456",
+        "server": "192.168.0.17\\SQLEXPRESS",
+        "database": "RJECIQ",
+        "port": 1433,
+        "pool": {
+            "min": 0,
+            "max": 30,
+            "idleTimeoutMillis": 3000
+        }
+    },
+    "newPVG": {
+        "user": "sa",
+        "password": "sa123456",
+        "server": "192.168.100.140\\SQLEXPRESS",
+        "database": "RJECIQ",
+        "port": 1433,
+        // "options": {
+        //     "encrypt": true // Use this if you're on Windows Azure
+        // },
+        "pool": {
+            "min": 0,
+            "max": 30,
+            "idleTimeoutMillis": 3000
+        }
+    },
+    "newPVG2": {
+        "user": "sa",
+        "password": "sa123456",
+        "server": "192.168.100.32\\SQLEXPRESS",
+        "database": "RJECIQ",
+        "port": 1433,
+        // "options": {
+        //     "encrypt": true // Use this if you're on Windows Azure
+        // },
+        "pool": {
+            "min": 0,
+            "max": 30,
+            "idleTimeoutMillis": 3000
+        }
+    },
+    "newKWE": {
+        "user": "sa",
+        "password": "sa123456",
+        "server": "192.168.200.98\\SQLEXPRESS",
+        "database": "RJECIQ",
+        "port": 1433,
+        "pool": {
+            "min": 0,
+            "max": 30,
+            "idleTimeoutMillis": 3000
+        }
+    }
+}
