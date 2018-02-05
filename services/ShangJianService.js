@@ -32,31 +32,35 @@ var getConnection = function (host, callback) {//连接数据库
 }
 SJServer.prototype.querySql = function (host, sql, params) {//写sql语句自由查询  params
   return new Promise((resolve, reject) => {
-    getConnection(host, function (connection) {
-      var ps = new mssql.PreparedStatement(connection);
-      if (params != "") {
-        for (var index in params) {
-          if (typeof params[index] == "number") {
-            ps.input(index, mssql.Int);
-          } else if (typeof params[index] == "string") {
-            ps.input(index, mssql.NVarChar);
+    try {
+      getConnection(host, function (connection) {
+        var ps = new mssql.PreparedStatement(connection);
+        if (params != "") {
+          for (var index in params) {
+            if (typeof params[index] == "number") {
+              ps.input(index, mssql.Int);
+            } else if (typeof params[index] == "string") {
+              ps.input(index, mssql.NVarChar);
+            }
           }
         }
-      }
-      ps.prepare(sql, function (err) {
-        if (err)
-          reject(err);
-        ps.execute(params, function (err, recordset) {
+        ps.prepare(sql, function (err) {
           if (err)
             reject(err);
-          ps.unprepare(function (err) {
+          ps.execute(params, function (err, recordset) {
             if (err)
               reject(err);
-            resolve(recordset);
+            ps.unprepare(function (err) {
+              if (err)
+                reject(err);
+              resolve(recordset);
+            });
           });
         });
       });
-    });
+    } catch (err) {
+      reject(err)
+    }
   })
 };
 

@@ -60,5 +60,29 @@
             "max": 30,
             "idleTimeoutMillis": 3000
         }
+    },
+    "tongbumssql": {
+        "user": "poweruser",
+        "password": "system",
+        "server": "192.168.0.133",
+        "database": "classifyTestPL",
+        "port": 1433,
+        "pool": {
+            "min": 0,
+            "max": 30,
+            "idleTimeoutMillis": 3000
+        }
+    },
+    "132mssql": {
+        "user": "poweruser",
+        "password": "system",
+        "server": "192.168.0.132",
+        "database": "paradata",
+        "port": 1433,
+        "pool": {
+            "min": 0,
+            "max": 30,
+            "idleTimeoutMillis": 3000
+        }
     }
 }

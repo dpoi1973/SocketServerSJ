@@ -1,8 +1,35 @@
 const config = require('config');
 const fs = require('fs');
 const schedule = require("node-schedule");
+const app = require('express')();
+const bodyParser = require('body-parser');
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const _ = require('lodash');
+const async = require('async');
+const port = process.env.PORT || 8007;
+
+const sjrouter = require('./routers/sjrouter');
 const hzserver = require('./services/HuiZhiService');
 
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+server.listen(port);
+
+app.engine('jade', require('jade').__express);
+
+app.get('/', (req, res) => {
+  res.render('indexx.jade');
+});
+
+app.use('/api', sjrouter.defualtrouter);
+const ioedis = io.of('/shangjianclients');
+
+ioedis.on('connection', (socket) => {
+    console.log('connected')
+})
 
 let new207configfile = JSON.parse(fs.readFileSync("records/new207.json", 'utf-8'));
 let new207date = new207configfile.Oper_Time;

@@ -10,10 +10,10 @@ let sjserver = new SJServer('new207');
 module.exports.starthuizhi = function (host, Oper_Time) {
     let finadata = {};
     return new Promise((resolve, reject) => {//Dcl_B_Response
-        sjserver.querySql(host, 'SELECT TOP 10 * FROM dbo.Dcl_B_Response where Oper_Time >= @Oper_Time order by Oper_Time asc', { Oper_Time: Oper_Time })
+        sjserver.querySql(host, 'SELECT TOP 30 * FROM dbo.Dcl_B_Response where Oper_Time >= @Oper_Time order by Oper_Time asc', { Oper_Time: Oper_Time })
             .then(results => {
                 finadata.resp = results.recordset;
-                sjserver.querySql(host, 'SELECT * FROM dbo.Dcl_B_Io_Decl where Ent_Decl_No in (SELECT TOP 10 Ent_Decl_No FROM dbo.Dcl_B_Response where Oper_Time >= @Oper_Time order by Oper_Time asc)', { Oper_Time: Oper_Time })
+                sjserver.querySql(host, 'SELECT * FROM dbo.Dcl_B_Io_Decl where Ent_Decl_No in (SELECT TOP 30 Ent_Decl_No FROM dbo.Dcl_B_Response where Oper_Time >= @Oper_Time order by Oper_Time asc)', { Oper_Time: Oper_Time })
                     .then(results => {
                         let data = results.recordset;
                         async.mapSeries(data, function (dec, callback) {
@@ -52,7 +52,7 @@ module.exports.starthuizhi = function (host, Oper_Time) {
                                         let data = finadata.resp;
                                         console.log(data[data.length - 1].Oper_Time.toISOString().slice(0,19).replace('T', ' '));
                                         let opertime = data[data.length - 1].Oper_Time.toISOString().slice(0,19).replace('T', ' ');
-                                        if (data.length == 10) {
+                                        if (data.length == 30) {
                                             fs.writeFileSync(`records/${host}.json`, JSON.stringify({ user: host, Oper_Time: opertime }));
                                             resolve({ status: 'continue', user: host, Oper_Time: opertime });
                                         } else {
